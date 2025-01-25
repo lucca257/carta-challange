@@ -1,5 +1,5 @@
 const Dto = require("../dtos/cliVesting.dto");
-const Service = require("../services/cli.service");
+const Action = require("../../vesting/actions/vestingEvent.action");
 
 class VestingCommand {
     /**
@@ -16,8 +16,8 @@ class VestingCommand {
         try {
             const dto = new Dto(fileName, date);
             dto.validate();
-            console.log('service call');
-            // service.run(new dto(fileName, date));
+
+            await Action.run(dto);
         } catch (error) {
             console.error(error.message);
             process.exit(1);
