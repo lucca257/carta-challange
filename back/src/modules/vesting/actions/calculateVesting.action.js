@@ -52,7 +52,6 @@ class CalculateVestingAction {
     }
 
     /**
-     * Private function to apply precision without floating-point errors.
      * - Converts to an integer space before processing.
      * - Truncates extra decimal places without rounding up.
      * @param {number} quantity

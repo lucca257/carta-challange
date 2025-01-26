@@ -1,64 +1,44 @@
-const path = require("path");
-const fs = require("fs");
-const readline = require("readline");
-const DATA_DIR = '../../../../data';
-const CalculateVestingAction = require('./calculateVesting.action');
+const CsvParserUtil = require("../../../utils/csvParser.util");
+const CalculateVestingAction = require("./calculateVesting.action");
 
 class VestingEventAction {
     /**
-     * @param vestingEventsDto
-     * @returns {Promise<*[]>}
+     * Processes vesting events from a CSV file.
+     * @param {Object} vestingEventsDto - The DTO containing `fileName`, `date`, and `precision`.
+     * @returns {Promise<Array>}
      */
     async run(vestingEventsDto) {
         const { fileName, date, precision } = vestingEventsDto;
-        return this.#_processFile(fileName, date, precision);
-    }
 
-    async #_processFile(fileName, date, precision) {
-        const dataDir = path.join(__dirname, DATA_DIR);
-        const filePath = path.join(dataDir, fileName.trim());
+        const rawData = await CsvParserUtil.run(fileName);
 
-        if (!fs.existsSync(filePath)) {
-            console.error(`file not found: ${filePath}`);
-            process.exit(1);
-        }
+        const vestingEvents = rawData
+            .map(parts => this.#_mapToVestingEvent(parts))
+            .filter(event => event !== null);  // Ignore invalid lines
 
-        const readStream = fs.createReadStream(filePath, { encoding: "utf8" });
-        const rl = readline.createInterface({ input: readStream, crlfDelay: Infinity });
+        const filteredEvents = vestingEvents.map(event => ({
+            ...event,
+            quantity: event.date > date ? 0 : event.quantity
+        }));
 
-        let vestingEvents = [];
-
-        for await (const line of rl) {
-            const event = this.#_parseLine(line);
-
-            if (!event) continue;
-
-            if (event.date > date) {
-                event.quantity = 0;
-            }
-
-            vestingEvents.push(event);
-        }
-
-        return CalculateVestingAction.run(vestingEvents, precision);
+        return CalculateVestingAction.run(filteredEvents, precision);
     }
 
     /**
-     *
-     * @param line
-     * @returns {{date: string, employeeName: string, awardId: string, quantity: (number|number), employeeId: string, type: string}|null}
+     * Converts raw CSV parts into a structured Vesting Event object.
+     * @param {Array<string>} parts - Raw CSV values.
+     * @returns {{type: string, employeeId: string, employeeName: string, awardId: string, date: string, quantity: number} | null}
      */
-    #_parseLine(line) {
-        const parts = line.split(",");
-        if (parts.length < 5) return null;
+    #_mapToVestingEvent(parts) {
+        if (parts.length < 6) return null; // Ensure minimum required fields exist
 
         return {
-            type: parts[0].trim(),
-            employeeId: parts[1].trim(),
-            employeeName: parts[2].trim(),
-            awardId: parts[3].trim(),
-            date: parts[4].trim(),
-            quantity: parseFloat(parts[5]) || 0
+            type: parts[0],
+            employeeId: parts[1],
+            employeeName: parts[2],
+            awardId: parts[3],
+            date: parts[4],
+            quantity: parseFloat(parts[5]) || 0  // Ensure quantity is a number
         };
     }
 }
