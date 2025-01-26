@@ -39,34 +39,44 @@ export default {
   padding: 10px;
   background-color: #f8f9fa;
   border-radius: 5px;
+  text-align: center;
 }
 
 nav ul {
   list-style-type: none;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 nav li {
-  padding: 10px;
+  padding: 10px 20px;
   cursor: pointer;
   background-color: #2c3e50;
   color: white;
   border-radius: 5px;
-  margin-bottom: 5px;
-  text-align: center;
+  transition: all 0.3s ease-in-out;
+  border: 3px solid transparent;
+  font-weight: 500;
 }
 
 nav li.active {
-  background-color: #34495e;
+  background-color: #1abc9c;
+  border-color: #16a085;
+  font-weight: bold;
+  color: white;
 }
 
 nav li:hover {
-  background-color: #1abc9c;
+  background-color: #16a085;
+  border-color: #0e6655;
 }
 
 .vesting-manager {
   margin-top: 10px;
   font-weight: bold;
   color: #2c3e50;
+  font-size: 1.2em;
 }
 </style>
