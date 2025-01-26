@@ -36,5 +36,27 @@ export const MOCK_API_RESPONSE = [
             { vesting_date: "09/22/2021", amount: "100.000", cumulative_amount: "1500.000" },
             { vesting_date: "12/22/2021", amount: "100.000", cumulative_amount: "1600.000" }
         ]
-    }
+    },
+    {
+        label: 'ES-205',
+        issue_date: '01/22/2018',
+        vesting_manager_name: '1/4, yearly, No Cliff',
+        vesting_schedule: [
+            {   vesting_date: '01/22/2019', amount: '4500.000', cumulative_amount: '4500.000' },
+            {   vesting_date: '01/22/2020', amount: '4501.000', cumulative_amount: '9001.000' },
+            {   vesting_date: '01/22/2021', amount: '4500.000', cumulative_amount: '13501.000' },
+            {   vesting_date: '01/22/2022', amount: '4501.000', cumulative_amount: '18002.000' },
+        ],
+    },
+    {
+        label: 'ES-206',
+        issue_date: '06/22/2018',
+        vesting_manager_name: '1/4, bi yearly, No Cliff',
+        vesting_schedule: [
+            { vesting_date: '06/22/2019', amount: '166.500', cumulative_amount: '166.500' },
+            { vesting_date: '12/22/2019', amount: '167.500', cumulative_amount: '334.000' },
+            { vesting_date: '06/22/2020', amount: '167.500', cumulative_amount: '501.500' },
+            { vesting_date: '12/22/2020', amount: '166.500', cumulative_amount: '668.000' },
+        ],
+    },
 ];
