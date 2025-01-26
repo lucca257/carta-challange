@@ -1,4 +1,4 @@
-const CalculateVestingAction = require("../calculateVesting.action");
+const CalculateVestingAction = require("../../calculateVesting.action");
 
 describe("CalculateVestingAction", () => {
     test("should correctly process vesting events", () => {
