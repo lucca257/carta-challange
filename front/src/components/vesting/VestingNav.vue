@@ -1,68 +1,72 @@
 <template>
   <div class="vesting-nav">
-    <ul>
-      <li v-for="(label, index) in sortedLabels" :key="index" @click="loadVestingData(label)">
-        {{ label }}
-      </li>
-    </ul>
+    <nav>
+      <ul>
+        <li
+            v-for="schedule in vestingStore.vestingData"
+            :key="schedule.label"
+            :class="{ active: vestingStore.selectedVestingSchedule?.label === schedule.label }"
+            @click="onSelect(schedule.label)">
+          {{ schedule.label }}
+        </li>
+      </ul>
+    </nav>
+    <p v-if="vestingStore.selectedVestingSchedule" class="vesting-manager">
+      {{ vestingStore.selectedVestingSchedule.vesting_manager_name }}
+    </p>
   </div>
 </template>
 
 <script>
+import { vestingStore } from "../../store/vesting/vesting.store.js";
+
 export default {
-  props: {
-    labels: {
-      type: Array,
-      required: true
+  methods: {
+    onSelect(label) {
+      this.$emit('load-data', label);
     }
   },
   computed: {
-    sortedLabels() {
-      return this.labels.sort((a, b) => {
-        const numA = parseInt(a.split('-')[1]);
-        const numB = parseInt(b.split('-')[1]);
-        return numA - numB;
-      });
-    }
-  },
-  methods: {
-    loadVestingData(label) {
-      this.$emit('load-data', label);
+    vestingStore() {
+      return vestingStore;
     }
   }
 };
 </script>
 
 <style scoped>
-.vesting-table {
-  width: 100%;
-  margin-top: 20px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-th, td {
+.vesting-nav {
   padding: 10px;
-  text-align: left;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav li {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #2c3e50;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+nav li.active {
+  background-color: #34495e;
+}
+
+nav li:hover {
+  background-color: #1abc9c;
+}
+
+.vesting-manager {
+  margin-top: 10px;
+  font-weight: bold;
   color: #2c3e50;
-}
-
-th {
-  background: #ecf0f1;
-  color: #2c3e50;
-}
-
-tr:nth-child(even) {
-  background: #f4f4f4;
-}
-
-tr:hover {
-  background: #e0e0e0;
 }
 </style>

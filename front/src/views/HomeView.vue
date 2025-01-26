@@ -2,7 +2,7 @@
   <div>
     <h1>Vesting Schedule</h1>
 
-    <VestingNav :labels="vestingLabels" @load-data="loadVestingData" />
+    <VestingNav @load-data="loadVestingData" />
 
     <p v-if="vestingStore.loading">Loading...</p>
     <p v-else-if="vestingStore.error" class="error">{{ vestingStore.error }}</p>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import VestingTable from "../components/vesting/VestingTable.vue";
 import VestingNav from "../components/vesting/VestingNav.vue";
 import { vestingStore } from "../store/vesting/vesting.store.js";
@@ -21,19 +21,17 @@ import { vestingStore } from "../store/vesting/vesting.store.js";
 export default {
   components: { VestingTable, VestingNav },
   setup() {
-    const selectedVestingData = ref([]);
-    const vestingLabels = ref([]);
+    const selectedVestingData = computed(() => vestingStore.selectedVestingSchedule?.vestingSchedule || []);
 
     onMounted(async () => {
       await vestingStore.fetchVestingData();
-      vestingLabels.value = vestingStore.vestingData.map(item => item.label);
     });
 
     const loadVestingData = (label) => {
-      selectedVestingData.value = vestingStore.getVestingDataByLabel(label);
+      vestingStore.selectVestingSchedule(label);
     };
 
-    return { vestingStore, selectedVestingData, vestingLabels, loadVestingData };
+    return { vestingStore, selectedVestingData, loadVestingData };
   }
 };
 </script>

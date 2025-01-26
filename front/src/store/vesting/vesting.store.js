@@ -3,6 +3,7 @@ import { VestingService } from "../../services/Vesting/vesting.service.js";
 
 export const vestingStore = reactive({
     vestingData: [],
+    selectedVestingSchedule: null,
     loading: false,
     error: null,
 
@@ -12,6 +13,9 @@ export const vestingStore = reactive({
             this.error = null;
             const data = await VestingService.getVestingSchedules();
             this.vestingData = data;
+            if (this.vestingData.length > 0) {
+                this.selectedVestingSchedule = this.vestingData[0];
+            }
         } catch (error) {
             this.error = "Failed to fetch vesting data";
             console.error(error);
@@ -22,5 +26,9 @@ export const vestingStore = reactive({
 
     getVestingDataByLabel(label) {
         return this.vestingData.find(item => item.label === label)?.vestingSchedule || [];
+    },
+
+    selectVestingSchedule(label) {
+        this.selectedVestingSchedule = this.vestingData.find(item => item.label === label) || null;
     }
 });
