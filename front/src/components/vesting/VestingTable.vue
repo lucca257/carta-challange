@@ -40,52 +40,46 @@ export default {
 </script>
 
 <style scoped>
-/* 🎨 Soft background for better readability */
 .vesting-table {
   width: 100%;
-  background-color: #f8f9fa; /* Light gray background */
+  background-color: #f8f9fa;
   padding: 20px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
 }
 
-/* 🏛️ Table Styling */
 table {
   width: 90%;
   max-width: 800px;
-  background-color: #fff; /* White table */
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border-collapse: collapse;
 }
 
-/* 📌 Header Styling */
 th {
-  background-color: #2c3e50; /* Dark gray header */
+  background-color: #2c3e50;
   color: #ffffff;
   padding: 12px;
   text-align: left;
 }
 
-/* 📌 Table Rows Styling */
 td {
   padding: 12px;
   text-align: left;
-  color: #2c3e50; /* Dark gray text */
+  color: #2c3e50;
 }
 
-/* 🌓 Alternate Row Colors */
 tbody tr:nth-child(even) {
-  background-color: #f4f4f4; /* Light gray rows */
+  background-color: #f4f4f4;
 }
 
 tbody tr:hover {
-  background-color: #e0e0e0; /* Hover effect */
+  background-color: #e0e0e0;
 }
 
-/* ✨ Responsive Design */
 @media (max-width: 768px) {
   table {
     width: 100%;

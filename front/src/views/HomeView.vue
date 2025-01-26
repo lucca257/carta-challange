@@ -7,18 +7,13 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
 import VestingTable from "../components/vesting/VestingTable.vue";
-import { VestingService } from "../services/Vesting/vesting.service.js";
+import useVestingData from "../mixins/vesting/vesting.mixin.js";
 
 export default {
   components: { VestingTable },
   setup() {
-    const vestingData = ref([]);
-
-    onMounted(async () => {
-      vestingData.value = (await VestingService.getVestingSchedules())[0].vestingSchedule; // Using first schedule
-    });
+    const { vestingData } = useVestingData();
 
     return { vestingData };
   }
