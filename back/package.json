@@ -8,6 +8,8 @@
   },
   "scripts": {
     "vesting": "node src/modules/cli/index.js",
-    "test": "jest"
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=unit",
+    "test:integration": "jest --testPathPattern=integration"
   }
 }
