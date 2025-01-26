@@ -1,21 +1,30 @@
 <template>
   <div>
     <h1>Vesting Schedule</h1>
-    <VestingTable v-if="vestingData.length" :vestingData="vestingData" />
-    <p v-else>Loading...</p>
+    <button @click="loadData">Load Data</button>
+
+    <p v-if="vestingStore.loading">Loading...</p>
+    <p v-else-if="vestingStore.error" class="error">{{ vestingStore.error }}</p>
+    <VestingTable v-else-if="vestingStore.vestingData.length" :vestingData="vestingStore.vestingData" />
+    <p v-else>No data available</p>
   </div>
 </template>
 
 <script>
+import { onMounted } from "vue";
 import VestingTable from "../components/vesting/VestingTable.vue";
-import useVestingData from "../mixins/vesting/vesting.mixin.js";
+import { vestingStore } from "../store/vesting/vesting.store.js";
 
 export default {
   components: { VestingTable },
   setup() {
-    const { vestingData } = useVestingData();
+    const loadData = () => {
+      vestingStore.fetchVestingData();
+    };
 
-    return { vestingData };
+    onMounted(loadData);
+
+    return { vestingStore, loadData };
   }
 };
 </script>
@@ -24,5 +33,9 @@ export default {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+}
+.error {
+  color: red;
+  font-weight: bold;
 }
 </style>
