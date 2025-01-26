@@ -2,11 +2,12 @@ const path = require("path");
 const fs = require("fs");
 const readline = require("readline");
 const DATA_DIR = '../../../../data';
+const CalculateVestingAction = require('./calculateVesting.action');
 
 class VestingEventAction {
     /**
-     * @param {Object} vestingEventsDto
-     * @returns {Promise<Array>}
+     * @param vestingEventsDto
+     * @returns {Promise<*[]>}
      */
     async run(vestingEventsDto) {
         const { fileName, date } = vestingEventsDto;
@@ -32,12 +33,14 @@ class VestingEventAction {
 
             if (!event) continue;
 
-            if (event.date <= date) {
-                vestingEvents.push(event);
+            if (event.date > date) {
+                event.quantity = 0;
             }
+
+            vestingEvents.push(event);
         }
 
-        return vestingEvents;
+        return CalculateVestingAction.run(vestingEvents);
     }
 
     /**
