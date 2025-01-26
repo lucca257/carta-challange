@@ -2,7 +2,7 @@
 
 const CliModule = require("./cli.module");
 const command = process.env.npm_lifecycle_event;
-const args = process.argv.slice(-2);
+const args = process.argv.slice(2);
 
 try {
     CliModule.run(command, args);

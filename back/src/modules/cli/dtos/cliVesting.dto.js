@@ -5,11 +5,13 @@ class CliVestingDto extends CliAbstractDto {
     /**
      * @param fileName
      * @param date
+     * @param precision
      */
-    constructor(fileName, date) {
+    constructor(fileName, date, precision = 0) {
         super();
         this.fileName = fileName;
         this.date = date;
+        this.precision = precision;
     }
 
     /**
@@ -30,6 +32,14 @@ class CliVestingDto extends CliAbstractDto {
 
         if (this.date && !this.isValidDate(this.date)) {
             throw new Error("The date field should be in format YYYY-MM-DD.");
+        }
+
+        if (this.precision < 0) {
+            throw new Error("The precision can not be lower than 0.");
+        }
+
+        if (this.precision > 6) {
+            throw new Error("The precision can not be greater than 6.");
         }
     }
 

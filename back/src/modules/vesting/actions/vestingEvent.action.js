@@ -10,11 +10,11 @@ class VestingEventAction {
      * @returns {Promise<*[]>}
      */
     async run(vestingEventsDto) {
-        const { fileName, date } = vestingEventsDto;
-        return this.#_processFile(fileName, date);
+        const { fileName, date, precision } = vestingEventsDto;
+        return this.#_processFile(fileName, date, precision);
     }
 
-    async #_processFile(fileName, date) {
+    async #_processFile(fileName, date, precision) {
         const dataDir = path.join(__dirname, DATA_DIR);
         const filePath = path.join(dataDir, fileName.trim());
 
@@ -40,7 +40,7 @@ class VestingEventAction {
             vestingEvents.push(event);
         }
 
-        return CalculateVestingAction.run(vestingEvents);
+        return CalculateVestingAction.run(vestingEvents, precision);
     }
 
     /**

@@ -11,10 +11,8 @@ class VestingCommand {
             process.exit(1);
         }
 
-        const [fileName, date] = args;
-
         try {
-            const dto = new Dto(fileName, date);
+            const dto = new Dto(...args);
             dto.validate();
 
             const data = await Action.run(dto);
