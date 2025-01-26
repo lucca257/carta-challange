@@ -11,12 +11,16 @@ export const vestingStore = reactive({
             this.loading = true;
             this.error = null;
             const data = await VestingService.getVestingSchedules();
-            this.vestingData = data[0]?.vestingSchedule || [];
+            this.vestingData = data;
         } catch (error) {
             this.error = "Failed to fetch vesting data";
             console.error(error);
         } finally {
             this.loading = false;
         }
+    },
+
+    getVestingDataByLabel(label) {
+        return this.vestingData.find(item => item.label === label)?.vestingSchedule || [];
     }
 });

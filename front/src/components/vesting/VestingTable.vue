@@ -11,8 +11,8 @@
       <tbody>
       <tr v-for="(row, index) in vestingData" :key="index">
         <td>{{ formatDate(row.date) }}</td>
-        <td>{{ row.amount.toFixed(2) }}</td>
-        <td>{{ row.cumulativeAmount.toFixed(2) }}</td>
+        <td>{{ row.amount !== undefined ? row.amount.toFixed(2) : 'N/A' }}</td>
+        <td>{{ row.cumulativeAmount !== undefined ? row.cumulativeAmount.toFixed(2) : 'N/A' }}</td>
       </tr>
       </tbody>
     </table>
@@ -42,50 +42,33 @@ export default {
 <style scoped>
 .vesting-table {
   width: 100%;
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
+  margin-top: 20px;
 }
 
 table {
-  width: 90%;
-  max-width: 800px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  width: 100%;
   border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-th {
-  background-color: #2c3e50;
-  color: #ffffff;
-  padding: 12px;
-  text-align: left;
-}
-
-td {
-  padding: 12px;
+th, td {
+  padding: 10px;
   text-align: left;
   color: #2c3e50;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f4f4f4;
+th {
+  background: #ecf0f1;
+  color: #2c3e50;
 }
 
-tbody tr:hover {
-  background-color: #e0e0e0;
+tr:nth-child(even) {
+  background: #f4f4f4;
 }
 
-@media (max-width: 768px) {
-  table {
-    width: 100%;
-  }
-  .vesting-table {
-    padding: 10px;
-  }
+tr:hover {
+  background: #e0e0e0;
 }
 </style>
