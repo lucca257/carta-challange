@@ -27,6 +27,8 @@ class CalculateVestingAction {
             } else if (event.type === "CANCEL") {
                 if (eventQuantity <= record.quantity) {
                     record.quantity -= eventQuantity;
+                } else {
+                    record.quantity = 0;
                 }
             }
 
