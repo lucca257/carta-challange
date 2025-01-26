@@ -1,5 +1,6 @@
 const CsvParserUtil = require("../../../utils/csvParser.util");
 const CalculateVestingAction = require("./calculateVesting.action");
+const VestingEventEntity = require("../../vesting/entities/vestingEvent.entity");
 
 class VestingEventAction {
     /**
@@ -27,19 +28,19 @@ class VestingEventAction {
     /**
      * Converts raw CSV parts into a structured Vesting Event object.
      * @param {Array<string>} parts - Raw CSV values.
-     * @returns {{type: string, employeeId: string, employeeName: string, awardId: string, date: string, quantity: number} | null}
+     * @returns {VestingEventEntity}
      */
     #_mapToVestingEvent(parts) {
-        if (parts.length < 6) return null; // Ensure minimum required fields exist
+        if (parts.length < 6) return null;
 
-        return {
-            type: parts[0],
-            employeeId: parts[1],
-            employeeName: parts[2],
-            awardId: parts[3],
-            date: parts[4],
-            quantity: parseFloat(parts[5]) || 0  // Ensure quantity is a number
-        };
+        return new VestingEventEntity(
+            parts[0],
+            parts[1],
+            parts[2],
+            parts[3],
+            parts[4],
+            parseFloat(parts[5]) || 0
+        );
     }
 }
 
