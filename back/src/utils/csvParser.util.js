@@ -15,8 +15,7 @@ class CsvParserUtil {
         const filePath = path.join(dataDir, fileName.trim());
 
         if (!fs.existsSync(filePath)) {
-            console.error(`File not found: ${filePath}`);
-            process.exit(1);
+            throw new Error(`File not found: ${filePath}`);
         }
 
         const readStream = fs.createReadStream(filePath, { encoding: "utf8" });
