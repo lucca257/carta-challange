@@ -6,7 +6,7 @@ describe("CliModule", () => {
     let CliModule;
     const mockCommand = "testCommand";
     const mockArgs = ["arg1", "arg2"];
-    const mockCommandPath = path.join(__dirname, "../../../modules/cli/commands", `${mockCommand}.command.js`);
+    const mockCommandPath = path.join(__dirname, "../../../../modules/cli/commands", `${mockCommand}.command.js`);
 
     beforeEach(() => {
         jest.clearAllMocks();
