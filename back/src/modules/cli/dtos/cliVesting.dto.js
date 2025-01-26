@@ -1,10 +1,13 @@
-class CliVestingDto {
+const CliAbstractDto = require('./cliAbstract.dto');
+
+class CliVestingDto extends CliAbstractDto {
 
     /**
      * @param fileName
      * @param date
      */
     constructor(fileName, date) {
+        super();
         this.fileName = fileName;
         this.date = date;
     }
