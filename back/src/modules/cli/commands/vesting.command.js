@@ -17,7 +17,10 @@ class VestingCommand {
             const dto = new Dto(fileName, date);
             dto.validate();
 
-            await Action.run(dto);
+            const data = await Action.run(dto);
+            data.forEach(event => {
+                console.log(`${event.employeeId},${event.employeeName},${event.awardId},${event.quantity}`);
+            });
         } catch (error) {
             console.error(error.message);
             process.exit(1);

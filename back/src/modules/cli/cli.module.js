@@ -12,7 +12,7 @@ class CliModule {
         if (fs.existsSync(commandPath)) {
             try {
                 const CommandModule = require(commandPath);
-                return CommandModule.run(args);
+                CommandModule.run(args);
             } catch (error) {
                 throw new Error(`Error executing command ${command}: ${error.message}`);
             }
