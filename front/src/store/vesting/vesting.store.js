@@ -24,10 +24,6 @@ export const vestingStore = reactive({
         }
     },
 
-    getVestingDataByLabel(label) {
-        return this.vestingData.find(item => item.label === label)?.vestingSchedule || [];
-    },
-
     selectVestingSchedule(label) {
         this.selectedVestingSchedule = this.vestingData.find(item => item.label === label) || null;
     }

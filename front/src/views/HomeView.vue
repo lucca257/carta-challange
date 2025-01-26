@@ -7,7 +7,11 @@
     <p v-if="vestingStore.loading">Loading...</p>
     <p v-else-if="vestingStore.error" class="error">{{ vestingStore.error }}</p>
 
-    <VestingTable v-else-if="selectedVestingData.length" :vestingData="selectedVestingData" />
+    <VestingTable
+        v-else-if="selectedVestingData.length"
+        :vestingData="selectedVestingData"
+        :vestingManagerName="vestingStore.selectedVestingSchedule?.vestingManager"
+    />
     <p v-else>No data available</p>
   </div>
 </template>

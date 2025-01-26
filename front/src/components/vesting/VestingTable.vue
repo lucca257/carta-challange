@@ -1,5 +1,6 @@
 <template>
   <div class="vesting-table">
+    <p v-if="vestingManagerName" class="vesting-manager">Vesting Manager: {{ vestingManagerName }}</p>
     <table>
       <thead>
       <tr>
@@ -25,6 +26,11 @@ export default {
     vestingData: {
       type: Array,
       required: true
+    },
+    vestingManagerName: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   methods: {
@@ -45,6 +51,17 @@ export default {
   margin-top: 20px;
 }
 
+.vesting-manager {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  background-color: #ecf0f1;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -60,8 +77,8 @@ th, td {
 }
 
 th {
-  background: #ecf0f1;
-  color: #2c3e50;
+  background: #34495e;
+  color: #ecf0f1;
 }
 
 tr:nth-child(even) {
