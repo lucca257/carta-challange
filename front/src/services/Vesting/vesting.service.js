@@ -8,7 +8,6 @@ export class VestingService {
     static async getVestingSchedules() {
         const data = await ApiService.get("/mock-api/vesting");
         return data.map(schedule => {
-
             const sortedVestingSchedule = schedule.vesting_schedule
                 .map(entry => ({
                     date: new Date(entry.vesting_date),

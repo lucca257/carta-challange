@@ -12,8 +12,8 @@
       <tbody>
       <tr v-for="(row, index) in vestingData" :key="index">
         <td>{{ formatDate(row.date) }}</td>
-        <td>{{ row.amount !== undefined ? row.amount.toFixed(2) : 'N/A' }}</td>
-        <td>{{ row.cumulativeAmount !== undefined ? row.cumulativeAmount.toFixed(2) : 'N/A' }}</td>
+        <td>{{ formatNumber(row.amount) }}</td>
+        <td>{{ formatNumber(row.cumulativeAmount) }}</td>
       </tr>
       </tbody>
     </table>
@@ -39,6 +39,12 @@ export default {
         year: "numeric",
         month: "long",
         day: "numeric"
+      });
+    },
+    formatNumber(number) {
+      return number.toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
       });
     }
   }
