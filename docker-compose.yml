@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   back:
+    container_name: back
     build:
       context: ./back
     volumes:
@@ -15,6 +16,7 @@ services:
     tty: true
 
   front:
+    container_name: front
     build:
       context: ./front
     volumes:
