@@ -13,3 +13,16 @@ services:
       - "3001:3000"
     stdin_open: true
     tty: true
+
+  front:
+    build:
+      context: ./front
+    volumes:
+      - ./front:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    tty: true
