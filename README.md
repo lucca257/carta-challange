@@ -6,7 +6,7 @@
 
 #### Prerequisites
 
-- Docker (version 20.10 or later)
+- Docker (version Docker version 27.5.1 or later)
 - Node.js (version 20 or later)
 
 #### Starting the Project
@@ -14,7 +14,7 @@
 To start both the backend and frontend using Docker, run the following command:
 
 ```sh
-docker-compose up
+docker compose up -d
 ```
 
 This will build and start the containers for both projects.
