@@ -28,9 +28,17 @@ To run the CLI, access the backend container and execute the desired command. Fo
 
 #### Accessing the Backend Container
 
+for the backend container, run the following command:
 ```sh
-docker exec -it <container_id> sh
+docker exec -it back sh
 ```
+
+for the frontend container, run the following command:
+```sh
+docker exec -it front sh
+```
+
+before sh you can use bash copy the command you want.
 
 #### Running Commands Inside the Container
 
@@ -38,6 +46,20 @@ docker exec -it <container_id> sh
 yarn run vesting example.csv 2020-04-01
 yarn run vesting example2.csv 2021-02-01
 yarn run vesting example3.csv 2021-02-01 1
+```
+
+or you can run directly with docker-compose
+
+```sh
+docker exec -it back yarn run vesting example.csv 2020-04-01
+```
+
+```sh
+docker exec -it back yarn run vesting example2.csv 2021-02-01
+```
+
+```sh
+docker exec -it back yarn run vesting example3.csv 2021-02-01 1
 ```
 
 #### Command Syntax
@@ -104,19 +126,24 @@ docker exec -it back yarn test
 
 ### 📖 Overview
 
-*To be completed...*
+I have developed using Vue.js with vite. fetching data from the mock api.
+
 
 ### 🛠 Design Decisions
 
-*To be completed...*
+- Component-Based Architecture: The application is divided into reusable components (VestingNav, VestingTable, etc.) to enhance maintainability and scalability. Each component is responsible for a specific part of the UI, making the codebase easier to manage and extend.
+- View Management: The view (HomeView.vue) integrates various components and manages the state of the application using the Vue store. It ensures that the UI is updated dynamically based on user interactions and state changes.
+- State Management: Utilizes Vue's reactive store to manage the global state of the application. This approach ensures that changes in the state are automatically reflected in the UI, providing a seamless user experience.
+- Service Layer: Implements a service layer (VestingService) to handle API calls and data processing. This separation of concerns allows for cleaner code and easier maintenance, as the data fetching logic is decoupled from the components.
 
 ### 📝 Assumptions & Interpretations
 
-*To be completed...*
+- none 
 
 ### 🚀 Potential Improvements
 
-*To be completed...*
+- create tests e2e with cypress
+- Micro Front-End Architecture: Implement a micro front-end architecture to break down the application into smaller, more manageable parts.
 
 ### 🧪 Tests
 
