@@ -1,82 +1,129 @@
-# carta take home
+# 📜 Carta Take Home
 
 ## 📦 Installation & Setup
+
 ### 🐳 Running with Docker
 
-##### Prerequisites
+#### Prerequisites
+
 - Docker (version 20.10 or later)
 - Node.js (version 20 or later)
 
-##### Starting the Projects
-To start both the backend and frontend projects using Docker, run the following command:
+#### Starting the Project
 
-```
+To start both the backend and frontend using Docker, run the following command:
+
+```sh
 docker-compose up
 ```
 
-This will build and start the containers for both projects. 
+This will build and start the containers for both projects.
 
-The frontend will be available at http://localhost:5173/.
+- The frontend will be accessible at [**http://localhost:5173/**](http://localhost:5173/).
+- The backend will be running inside a Docker container.
 
-##### Backend Setup
-To run the cli, you need to access the backend container and run a command. Here are three examples of running commands inside the backend container:  
-Access the backend container:  
+### 🖥️ Backend Setup
 
-```
+To run the CLI, access the backend container and execute the desired command. Follow these steps:
+
+#### Accessing the Backend Container
+
+```sh
 docker exec -it <container_id> sh
 ```
-Run the desired command inside the container:
-```
+
+#### Running Commands Inside the Container
+
+```sh
 yarn run vesting example.csv 2020-04-01
-yarn run vesting another_example.csv 2021-05-01
-yarn run vesting sample.csv 2022-06-01
+yarn run vesting example2.csv 2021-02-01
+yarn run vesting example3.csv 2021-02-01 1
 ```
 
-the command is 
+#### Command Syntax
+
+```sh
+yarn run vesting <file_name> <date> <?precision>
 ```
-yarn run vesting <file_name> <date> <precision>
-```
 
-where file_name is the name of the file to be processed, date is the date to be used as the reference date, and precision (optional) is the number of decimal places to be used in the output.
+Where:
 
-# 📌 Backend
+- **file\_name**: The CSV file to be processed.
+- **date**: The reference date in `YYYY-MM-DD` format.
+- **precision** *(optional)*: The number of decimal places for output (default is an integer, range: 0-6).
 
-### 📖 Overview
-The backend was made with javascript using Node.js without libraries.
-
-The file is read using a stream to handle large files efficiently, processing each line individually to avoid high memory consumption
-
-### 🛠 Design Decisions
-- Modular Architecture: Each module (e.g., vesting, cli, utils) is isolated to ensure scalability and maintainability.
-- Use of DTOs: The use of DTOs ensures that the data is validated before being processed.
-- Use of Entities: The use of entities ensures that the data is validated before being processed.
-- Use of Actions: The use of actions ensures that the code is organized and easy to maintain.
-- Developed using TDD: The code was developed using TDD to ensure the quality of the code and to make it easier to maintain and scale.
-
-All this principels follwing the SOLID principles.
-
-### 📝 Assumptions & Interpretations
-
-- Command: need pass at leat two params to run the command, in the specific order <file-name> <date> 
-- Command file-name: will validate if the file is CSV, other format is not allowed.
-- Command date: will validate if date is in the correct format 2020-04-01, if not will throw an error.
-- File content: the file content should be in CSV, other type are the row should have at least 6 parts to be processed if not, will be ignored.
-- When happen a invalid calculation, i will ignore the calculation and return quantity 0.
-- When the row date is after the filter date, the shares will be ignored, returning 0 quantity.
-- I have assumed that the precision is optional, and when not passed i will handle the number as an integer. Negative precision or precision above 6 is not allowed.
-
-### 🚀 Potential Improvements
-
-- Processing the file in smaller batches to reduce memory usage
-- use worker threads to parallelize the processing of different parts of the file, and distributing the processing across multiple machines to handle extremely large files efficiently.
-
-# 📌 Front
+## 📌 Backend
 
 ### 📖 Overview
 
+The backend is developed in **JavaScript using Node.js** without additional libraries. It processes large files efficiently using **streams**, handling each line individually to minimize memory consumption.
+
 ### 🛠 Design Decisions
+
+- **Modular Architecture**: Each module (e.g., `vesting`, `cli`, `utils`) is isolated for scalability and maintainability.
+- **Data Transfer Objects (DTOs)**: Ensures data validation before processing.
+- **Entity-Based Approach**: Ensures consistency and validation of data.
+- **Action-Oriented Design**: Keeps the code structured and maintainable.
+- **Test-Driven Development (TDD)**: The codebase follows TDD principles to ensure quality, maintainability, and scalability.
+- **SOLID Principles**: The entire architecture adheres to **SOLID** principles for better maintainability and extensibility.
 
 ### 📝 Assumptions & Interpretations
 
+- **Command Execution**: Requires at least two parameters: `<file_name>` and `<date>`.
+- **File Validation**: Only **CSV files** are accepted; other formats are rejected.
+- **Date Validation**: The date must be in `YYYY-MM-DD` format; otherwise, an error is thrown.
+- **File Content Rules**:
+    - The file content must be in **CSV** format.
+    - Each row must contain **at least six fields** to be processed; otherwise, it is ignored.
+- **Ignored**:
+    - If an invalid calculation occurs, the system ignores it and returns **quantity = 0**.
+    - If a row’s date is **after the filter date**, its shares are ignored (**quantity = 0**).
+    - The system will output the ignored employees and their awards.
+- **Precision Handling**:
+    - The precision parameter is **optional**; if omitted, values are treated as integers.
+    - Precision values **below 0** or **above 6** are not allowed.
 
 ### 🚀 Potential Improvements
+
+- **Batch Processing**: Process files in smaller chunks to reduce memory usage.
+- **Parallel Processing**:
+    - Utilize **worker threads** to speed up file processing.
+    - Distribute processing across multiple machines to handle very large files efficiently.
+
+### 🧪 Tests
+
+The backend is thoroughly tested using **Jest** for unit and integration tests.
+
+You can run the tests using the following command
+
+```sh
+docker exec -it back yarn test
+```
+
+## 📌 Frontend
+
+### 📖 Overview
+
+*To be completed...*
+
+### 🛠 Design Decisions
+
+*To be completed...*
+
+### 📝 Assumptions & Interpretations
+
+*To be completed...*
+
+### 🚀 Potential Improvements
+
+*To be completed...*
+
+### 🧪 Tests
+
+The frontend is thoroughly tested using **Vitest** for unit and integration tests.
+
+You can run the tests using the following command
+
+```sh
+docker exec -it front yarn test
+```
