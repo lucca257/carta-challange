@@ -54,13 +54,18 @@ or you can run directly with docker-compose
 docker exec -it back yarn run vesting example.csv 2020-04-01
 ```
 
+![img.png](img.png)
+
 ```sh
 docker exec -it back yarn run vesting example2.csv 2021-02-01
 ```
+![img_1.png](img_1.png)
 
 ```sh
 docker exec -it back yarn run vesting example3.csv 2021-02-01 1
 ```
+
+![img_2.png](img_2.png)
 
 #### Command Syntax
 
@@ -122,6 +127,8 @@ You can run the tests using the following command
 docker exec -it back yarn test
 ```
 
+![img_3.png](img_3.png)
+
 ## 📌 Frontend
 
 ### 📖 Overview
@@ -154,3 +161,5 @@ You can run the tests using the following command
 ```sh
 docker exec -it front yarn test
 ```
+
+![img_4.png](img_4.png)
