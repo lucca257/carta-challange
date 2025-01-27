@@ -85,6 +85,8 @@ Where:
 
 The backend is developed in **JavaScript using Node.js** without additional libraries. It processes large files efficiently using **streams**, handling each line individually to minimize memory consumption.
 
+![img_5.png](img_5.png)
+
 ### 🛠 Design Decisions
 
 - **Modular Architecture**: Each module (e.g., `vesting`, `cli`, `utils`) is isolated for scalability and maintainability.
