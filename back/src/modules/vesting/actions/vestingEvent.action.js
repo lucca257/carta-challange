@@ -19,7 +19,7 @@ class VestingEventAction {
 
         const filteredEvents = vestingEvents.map(event => ({
             ...event,
-            quantity: event.date > date ? 0 : event.quantity
+            quantity: new Date(event.date) > new Date(date) ? 0 : event.quantity
         }));
 
         return CalculateVestingAction.run(filteredEvents, precision);
